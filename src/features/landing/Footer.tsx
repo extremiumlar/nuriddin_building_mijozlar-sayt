@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
-import { Building, Mail, MapPin, Phone, Send } from 'lucide-react'
+import { Mail, MapPin, Phone, Send } from 'lucide-react'
+import { Logo } from '@/components/Logo'
 import { appConfig } from '@/config/app'
 
 const sections = [
@@ -44,18 +45,16 @@ export function LandingFooter() {
       <div className="max-w-7xl mx-auto px-6 py-14">
         <div className="grid lg:grid-cols-5 gap-10">
           <div className="lg:col-span-2">
-            <div className="flex items-center gap-2.5">
-              <div className="h-10 w-10 rounded-element bg-brand flex items-center justify-center">
-                <Building className="h-5 w-5 text-white" />
-              </div>
+            <div className="flex items-center gap-3">
+              <Logo size={44} background="dark" />
               <div>
-                <p className="text-base font-bold text-ink">{appConfig.companyName}</p>
-                <p className="text-xs text-ink-muted">Uy qurilish kompaniyasi</p>
+                <p className="text-base font-extrabold tracking-tight text-ink leading-tight">NURIDDIN BUILDINGS</p>
+                <p className="text-xs text-gold-700 font-medium italic mt-0.5">"{appConfig.slogan}"</p>
               </div>
             </div>
             <p className="mt-4 text-sm text-ink-muted max-w-md text-pretty">
               2014-yildan beri Toshkent va viloyatlarda zamonaviy turar-joy
-              majmualarini qurib topshirib kelmoqdamiz.
+              majmualarini qurib topshirib kelmoqdamiz. {appConfig.tagline}.
             </p>
 
             <div className="mt-6 space-y-2 text-sm">

@@ -76,18 +76,18 @@
   }
 
   ::selection {
-    background-color: rgb(26 86 219 / 0.15);
-    color: rgb(26 86 219);
+    background-color: rgb(14 61 46 / 0.18);
+    color: rgb(14 61 46);
   }
 
   .dark ::selection {
-    background-color: rgb(26 86 219 / 0.30);
-    color: rgb(143 174 248);
+    background-color: rgb(201 169 97 / 0.30);
+    color: rgb(234 210 146);
   }
 
   :focus-visible {
     outline: none;
-    box-shadow: 0 0 0 3px rgb(26 86 219 / 0.30);
+    box-shadow: 0 0 0 3px rgb(14 61 46 / 0.30);
     border-radius: 6px;
   }
 
@@ -153,7 +153,7 @@
 
   /* Gradient text */
   .text-gradient-brand {
-    background: linear-gradient(135deg, #1A56DB 0%, #5C84F2 50%, #8FAEF8 100%);
+    background: linear-gradient(135deg, #0A2E22 0%, #2F745A 50%, #C9A961 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -161,7 +161,7 @@
   }
 
   .text-gradient-gold {
-    background: linear-gradient(135deg, #B45309 0%, #F59E0B 50%, #FCD34D 100%);
+    background: linear-gradient(135deg, #836B3B 0%, #C9A961 50%, #EAD292 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;

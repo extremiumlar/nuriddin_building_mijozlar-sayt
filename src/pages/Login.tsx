@@ -3,7 +3,6 @@ import { useNavigate, useLocation, Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   ArrowRight,
-  Building,
   Check,
   Fingerprint,
   Lock,
@@ -19,15 +18,16 @@ import { useAuthStore } from '@/store/auth'
 import { authApi } from '@/api/auth'
 import { appConfig } from '@/config/app'
 import { cn } from '@/lib/utils'
+import { Logo } from '@/components/Logo'
 import { AnimatedNumber, FadeUp, Stagger, StaggerItem } from '@/components/motion'
 
 type Step = 'phone' | 'otp' | 'success'
 
 const facts = [
-  { headline: 'Bu oyda 12 ta kvartira topshirildi', kicker: 'BAJARILGAN' },
+  { headline: "Uy emas, orzu quramiz", kicker: 'SHIORIMIZ' },
+  { headline: "Qadriyatli qo'shnilar — hammaga sotilmaydi", kicker: 'PREMIUM' },
   { headline: 'Iyun loterеyada iPhone 16 Pro yutib oling', kicker: 'AKSIYA' },
   { headline: '320+ mamnun mijoz portal orqali kuzatadi', kicker: 'STATISTIKA' },
-  { headline: 'Basseyn bugundan boshlab faol', kicker: 'YANGILIK' },
   { headline: '98% mijoz mamnunlik koeffitsienti', kicker: 'REYTING' },
 ]
 
@@ -169,24 +169,25 @@ export function LoginPage() {
   return (
     <div className="min-h-screen bg-bg grid lg:grid-cols-[1.05fr_1fr]">
       {/* Left side — gradient marketing panel */}
-      <div className="hidden lg:flex relative flex-col justify-between p-12 bg-gradient-to-br from-brand via-brand-700 to-brand-900 text-white overflow-hidden">
+      <div className="hidden lg:flex relative flex-col justify-between p-12 bg-gradient-to-br from-brand-700 via-brand-800 to-brand-900 text-white overflow-hidden">
         {/* Decorative gradients */}
-        <div className="absolute -top-32 -right-32 h-[460px] w-[460px] rounded-full bg-gold/20 blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-32 -left-32 h-[400px] w-[400px] rounded-full bg-brand-300/30 blur-3xl pointer-events-none" />
+        <div className="absolute -top-32 -right-32 h-[460px] w-[460px] rounded-full bg-gold/25 blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-32 -left-32 h-[400px] w-[400px] rounded-full bg-gold/15 blur-3xl pointer-events-none" />
         <div
           className="absolute inset-0 opacity-[0.08]"
           style={{
-            backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)',
+            backgroundImage: 'radial-gradient(circle at 1px 1px, #C9A961 1px, transparent 0)',
             backgroundSize: '24px 24px',
           }}
         />
 
         <div className="relative">
-          <Link to="/" className="inline-flex items-center gap-2.5">
-            <div className="h-10 w-10 rounded-element bg-white/15 backdrop-blur flex items-center justify-center">
-              <Building className="h-5 w-5" />
+          <Link to="/" className="inline-flex items-center gap-3">
+            <Logo size={44} />
+            <div>
+              <p className="text-base font-extrabold tracking-tight leading-none">NURIDDIN</p>
+              <p className="text-[10px] text-gold-300 tracking-[0.2em] font-medium mt-1">BUILDINGS</p>
             </div>
-            <span className="text-base font-semibold">{appConfig.companyName}</span>
           </Link>
         </div>
 
@@ -201,7 +202,7 @@ export function LoginPage() {
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               >
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-pill bg-white/15 backdrop-blur text-[10px] font-bold uppercase tracking-wider mb-3">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-pill bg-gold/20 text-gold-200 backdrop-blur text-[10px] font-bold uppercase tracking-wider mb-3">
                   <Sparkles className="h-3 w-3" />
                   {facts[activeFact].kicker}
                 </div>
@@ -219,7 +220,7 @@ export function LoginPage() {
                   onClick={() => setActiveFact(idx)}
                   className={cn(
                     'h-1 rounded-pill transition-all',
-                    idx === activeFact ? 'w-8 bg-white' : 'w-1 bg-white/30 hover:bg-white/50',
+                    idx === activeFact ? 'w-8 bg-gold' : 'w-1 bg-white/30 hover:bg-white/50',
                   )}
                   aria-label={`Fakt ${idx + 1}`}
                 />
@@ -228,13 +229,13 @@ export function LoginPage() {
           </div>
 
           {/* Stats row */}
-          <div className="grid grid-cols-3 gap-4 pt-6 border-t border-white/20">
+          <div className="grid grid-cols-3 gap-4 pt-6 border-t border-gold/20">
             {stats.map((s) => (
               <div key={s.label}>
                 <p className="text-2xl xl:text-3xl font-extrabold tracking-tight">
                   <AnimatedNumber value={s.value} startOnView format={(n) => `${n}${s.suffix}`} />
                 </p>
-                <p className="text-[11px] text-brand-100 mt-0.5">{s.label}</p>
+                <p className="text-[11px] text-gold-200/80 mt-0.5">{s.label}</p>
               </div>
             ))}
           </div>
@@ -242,18 +243,18 @@ export function LoginPage() {
 
         <div className="relative">
           {/* Trust badges */}
-          <div className="grid grid-cols-3 gap-2 pb-4 border-b border-white/15">
+          <div className="grid grid-cols-3 gap-2 pb-4 border-b border-gold/15">
             {trustBadges.map((b) => (
               <div key={b.label} className="flex items-center gap-2 text-xs">
-                <ShieldCheck className="h-3.5 w-3.5 text-emerald-300 shrink-0" />
+                <ShieldCheck className="h-3.5 w-3.5 text-gold-300 shrink-0" />
                 <div>
                   <p className="text-white font-semibold leading-tight">{b.label}</p>
-                  <p className="text-[10px] text-brand-100 leading-tight">{b.desc}</p>
+                  <p className="text-[10px] text-gold-200/80 leading-tight">{b.desc}</p>
                 </div>
               </div>
             ))}
           </div>
-          <p className="mt-4 text-[11px] text-brand-100">© 2026 {appConfig.companyName}</p>
+          <p className="mt-4 text-[11px] text-gold-200/70">© 2026 {appConfig.companyName}</p>
         </div>
       </div>
 
@@ -262,10 +263,11 @@ export function LoginPage() {
         {/* Top right mobile logo */}
         <div className="lg:hidden absolute top-6 left-6">
           <Link to="/" className="inline-flex items-center gap-2">
-            <div className="h-9 w-9 rounded-element bg-brand flex items-center justify-center">
-              <Building className="h-4 w-4 text-white" />
+            <Logo size={36} background="dark" />
+            <div>
+              <p className="text-sm font-extrabold tracking-tight leading-none text-ink">NURIDDIN</p>
+              <p className="text-[9px] text-ink-muted tracking-[0.2em] font-medium mt-0.5">BUILDINGS</p>
             </div>
-            <span className="font-semibold text-ink">{appConfig.companyName}</span>
           </Link>
         </div>
 

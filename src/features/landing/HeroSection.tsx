@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
-import { Award, ArrowRight, Building, ShieldCheck, Star, Users } from 'lucide-react'
+import { Award, ArrowRight, ShieldCheck, Star, Users } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
+import { Logo } from '@/components/Logo'
 import { FadeUp, Stagger, StaggerItem } from '@/components/motion'
 
 const trustBadges = [
@@ -33,27 +34,23 @@ export function HeroSection() {
           <div>
             <Stagger staggerChildren={0.08}>
               <StaggerItem>
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-pill bg-brand/10 dark:bg-brand/15 text-brand-700 dark:text-brand-300 text-xs font-semibold">
-                  <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full rounded-full bg-success opacity-75 animate-ping" />
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-success" />
-                  </span>
-                  2 ta blok faol qurilmoqda
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-pill bg-gold/15 text-gold-700 dark:text-gold-300 text-xs font-bold uppercase tracking-wider">
+                  <Award className="h-3 w-3" />
+                  Premium · Cheklangan
                 </div>
               </StaggerItem>
 
               <StaggerItem>
                 <h1 className="mt-6 text-5xl lg:text-7xl font-extrabold tracking-tighter leading-[1.05] text-ink">
-                  Uyingiz <br />
-                  <span className="text-gradient-brand">qadam-baqadam</span>{' '}
-                  <span className="text-ink-muted text-3xl lg:text-5xl">— ko'z oldingizda</span>
+                  Uy emas, <br />
+                  <span className="text-gradient-brand">orzu quramiz</span>
                 </h1>
               </StaggerItem>
 
               <StaggerItem>
                 <p className="mt-6 text-lg text-ink-muted leading-relaxed max-w-xl text-pretty">
-                  Real vaqt qurilish hisoboti, smart to'lov grafigi, jonli loterеya va
-                  hamjamiyat infratuzilmasi — barchasi yagona ilovada.
+                  Qadriyatli qo'shnilar — hammaga sotilmaydi. Premium turar-joy majmualari,
+                  smart to'lov grafigi va hamjamiyat — bitta yagona portalda.
                 </p>
               </StaggerItem>
 
@@ -182,9 +179,7 @@ function BuildingShowcase() {
               <p className="text-[10px] text-ink-muted uppercase tracking-wider">1-blok · 5 qavat</p>
               <p className="text-base font-bold text-ink mt-0.5">3 qavat tugallandi</p>
             </div>
-            <div className="h-10 w-10 rounded-element bg-brand-50 dark:bg-brand/15 flex items-center justify-center">
-              <Building className="h-5 w-5 text-brand" />
-            </div>
+            <Logo size={40} background="dark" />
           </div>
           <div className="mt-3 h-1.5 bg-surface-subtle rounded-pill overflow-hidden">
             <div className="h-full bg-gradient-to-r from-brand to-success rounded-pill" style={{ width: '72%' }} />

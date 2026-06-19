@@ -1,18 +1,16 @@
 import { NavLink } from 'react-router-dom'
-import { Building } from 'lucide-react'
 import { navItems } from '@/config/navigation'
+import { Logo } from '@/components/Logo'
 import { cn } from '@/lib/utils'
 
 export function Sidebar() {
   return (
     <aside className="hidden lg:flex flex-col w-64 shrink-0 bg-surface border-r border-border h-screen sticky top-0">
       <div className="h-16 px-5 flex items-center gap-2.5 border-b border-border">
-        <div className="h-9 w-9 rounded-[10px] bg-brand flex items-center justify-center shadow-card">
-          <Building className="h-5 w-5 text-white" />
-        </div>
+        <Logo size={36} background="dark" />
         <div>
-          <p className="text-sm font-semibold text-ink leading-tight">Mijoz portali</p>
-          <p className="text-[11px] text-ink-muted leading-tight">Build Co.</p>
+          <p className="text-sm font-extrabold tracking-tight text-ink leading-tight">NURIDDIN</p>
+          <p className="text-[10px] text-ink-muted tracking-[0.18em] leading-tight font-medium">BUILDINGS</p>
         </div>
       </div>
       <nav className="flex-1 p-3 overflow-y-auto scrollbar-thin">

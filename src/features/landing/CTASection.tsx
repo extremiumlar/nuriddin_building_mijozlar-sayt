@@ -19,27 +19,27 @@ export function CTASection() {
             <div className="relative grid lg:grid-cols-3 gap-6 items-center">
               <div className="lg:col-span-2">
                 <h2 className="text-3xl lg:text-4xl font-extrabold text-white tracking-tight text-balance">
-                  Sizning uyingiz haqida bizning tarjimamizni eshiting
+                  Orzuingiz Nuriddin Buildings'da qadam quyadi
                 </h2>
-                <p className="mt-3 text-base text-brand-100 max-w-xl text-pretty">
-                  Shartnoma imzolagandan so'ng login ma'lumotlari telefoningizga keladi.
-                  Hisobni ochish — bepul, taklif sizdan.
+                <p className="mt-3 text-base text-gold-100 max-w-xl text-pretty">
+                  Shartnoma imzolagandan so'ng portal kirish ma'lumotlari telefoningizga keladi.
+                  {appConfig.tagline}.
                 </p>
                 <div className="mt-6 flex flex-col sm:flex-row gap-3">
                   <Link to="/login">
-                    <Button variant="primary" size="lg" rightIcon={<ArrowRight className="h-4 w-4" />} className="bg-white text-brand hover:bg-brand-50">
+                    <Button variant="gold" size="lg" rightIcon={<ArrowRight className="h-4 w-4" />}>
                       Mijoz kabinetiga kirish
                     </Button>
                   </Link>
                 </div>
               </div>
               <div className="lg:text-right">
-                <p className="text-xs text-brand-100 uppercase tracking-wider">24/7 maslahat</p>
-                <a href={`tel:${appConfig.supportPhone.replace(/\s/g, '')}`} className="mt-2 inline-flex items-center gap-2 text-xl lg:text-2xl font-bold text-white hover:underline">
+                <p className="text-xs text-gold-200 uppercase tracking-wider">24/7 maslahat</p>
+                <a href={`tel:${appConfig.supportPhone.replace(/\s/g, '')}`} className="mt-2 inline-flex items-center gap-2 text-xl lg:text-2xl font-bold text-white hover:text-gold-300 transition-colors">
                   <Phone className="h-5 w-5" />
                   {appConfig.supportPhone}
                 </a>
-                <p className="text-xs text-brand-100 mt-1">Telefon, Telegram, WhatsApp</p>
+                <p className="text-xs text-gold-200 mt-1">Telefon, Telegram, WhatsApp</p>
               </div>
             </div>
           </div>

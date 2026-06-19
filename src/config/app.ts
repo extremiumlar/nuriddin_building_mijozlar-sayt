@@ -4,6 +4,9 @@ export const appConfig = {
   // When true, API calls are intercepted and answered with local mock data.
   // Set VITE_USE_MOCK=false to hit a real backend.
   useMock: (import.meta.env.VITE_USE_MOCK ?? 'true') !== 'false',
-  companyName: 'Build Co.',
+  companyName: 'NURIDDIN BUILDINGS',
+  companyShort: 'Nuriddin',
+  slogan: "Uy emas, orzu quramiz!",
+  tagline: "Qadriyatli qo'shnilar — hammaga sotilmaydi",
   supportPhone: '+998 71 200 00 00',
 } as const

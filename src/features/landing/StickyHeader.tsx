@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Building } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
+import { Logo } from '@/components/Logo'
 import { cn } from '@/lib/utils'
-import { appConfig } from '@/config/app'
 
 const navItems = [
   { label: 'Imkoniyatlar', href: '#features' },
@@ -32,13 +31,11 @@ export function StickyHeader() {
       )}
     >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between gap-6">
-        <Link to="/" className="flex items-center gap-2.5 shrink-0">
-          <div className="h-9 w-9 rounded-element bg-brand flex items-center justify-center shadow-card">
-            <Building className="h-4 w-4 text-white" />
-          </div>
+        <Link to="/" className="flex items-center gap-2.5 shrink-0 group">
+          <Logo size={38} background="dark" className="transition-transform duration-300 group-hover:scale-105" />
           <div className="hidden sm:block">
-            <p className="text-sm font-semibold text-ink leading-tight">{appConfig.companyName}</p>
-            <p className="text-[10px] text-ink-muted leading-tight">Mijozlar portali</p>
+            <p className="text-sm font-extrabold tracking-tight text-ink leading-tight">NURIDDIN</p>
+            <p className="text-[9px] text-ink-muted tracking-[0.2em] leading-tight font-medium">BUILDINGS</p>
           </div>
         </Link>
 
