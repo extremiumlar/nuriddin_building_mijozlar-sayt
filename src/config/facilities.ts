@@ -136,7 +136,7 @@ export const facilityMeta: Record<FacilityType, FacilityMeta & { icon: LucideIco
     isFree: true,
     icon: Baby,
     color: 'text-rose-600 bg-rose-50 dark:bg-rose-500/15',
-    imageUrl: 'https://images.unsplash.com/photo-1576037728058-fe4748d14e97?w=1200&q=80&auto=format&fit=crop',
+    imageUrl: 'https://images.unsplash.com/photo-1593103916129-87e179a70c1f?w=1200&q=80&auto=format&fit=crop',
   },
 }
 
