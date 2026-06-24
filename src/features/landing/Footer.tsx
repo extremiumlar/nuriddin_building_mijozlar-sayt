@@ -5,12 +5,11 @@ import { appConfig } from '@/config/app'
 
 const sections = [
   {
-    title: 'Loyihalar',
+    title: 'Loyiha',
     links: [
-      { label: 'Nurli Diyor Residence', href: '#' },
-      { label: 'Bahor Park', href: '#' },
-      { label: 'Quyosh Tower', href: '#' },
-      { label: 'Salom Plaza', href: '#' },
+      { label: 'Nurli Diyor Residence', href: '#projects' },
+      { label: 'Qulayliklar', href: '#features' },
+      { label: 'Manzil', href: '#projects' },
     ],
   },
   {
@@ -27,7 +26,6 @@ const sections = [
     links: [
       { label: 'Biz haqimizda', href: '#' },
       { label: 'Yangiliklar', href: '#' },
-      { label: 'Vakansiya', href: '#' },
       { label: 'Aloqa', href: '#' },
     ],
   },
@@ -53,8 +51,7 @@ export function LandingFooter() {
               </div>
             </div>
             <p className="mt-4 text-sm text-ink-muted max-w-md text-pretty">
-              2014-yildan beri Toshkent va viloyatlarda zamonaviy turar-joy
-              majmualarini qurib topshirib kelmoqdamiz. {appConfig.tagline}.
+              Birinchi loyihamiz — Nurli Diyor Residence. {appConfig.tagline}.
             </p>
 
             <div className="mt-6 space-y-2 text-sm">

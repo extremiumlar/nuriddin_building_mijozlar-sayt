@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom'
-import { Award, ArrowRight, ShieldCheck, Star, Users } from 'lucide-react'
+import { Award, ArrowRight, Layers, ShieldCheck, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Logo } from '@/components/Logo'
 import { FadeUp, Stagger, StaggerItem } from '@/components/motion'
 
 const trustBadges = [
-  { icon: Award, label: '12 yillik tajriba' },
-  { icon: Users, label: '320+ topshirilgan' },
-  { icon: Star, label: '4.9 · 240 sharh' },
+  { icon: Award, label: 'Premium loyiha' },
+  { icon: Layers, label: '9 qavat' },
+  { icon: Sparkles, label: '10 ta qulaylik' },
   { icon: ShieldCheck, label: 'ISO 9001' },
 ]
 
@@ -99,65 +99,15 @@ export function HeroSection() {
 function BuildingShowcase() {
   return (
     <div className="relative aspect-[4/5] lg:aspect-[5/6] rounded-dialog overflow-hidden bg-gradient-to-br from-brand to-brand-900 shadow-elevated">
-      {/* Decorative layers */}
-      <div className="absolute inset-0 bg-gradient-to-t from-brand-900/80 via-transparent to-transparent" />
-
-      {/* Animated SVG building */}
-      <svg
-        viewBox="0 0 400 500"
-        className="absolute inset-0 w-full h-full"
-        preserveAspectRatio="xMidYEnd meet"
-      >
-        <defs>
-          <linearGradient id="buildingGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.95" />
-            <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0.4" />
-          </linearGradient>
-          <linearGradient id="windowGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#FBBF24" stopOpacity="0.9" />
-            <stop offset="100%" stopColor="#F59E0B" stopOpacity="0.6" />
-          </linearGradient>
-        </defs>
-
-        {/* Background skyline */}
-        <rect x="20" y="320" width="50" height="180" rx="4" fill="white" opacity="0.08" />
-        <rect x="340" y="280" width="40" height="220" rx="4" fill="white" opacity="0.08" />
-
-        {/* Main building */}
-        <rect x="100" y="140" width="200" height="360" rx="8" fill="url(#buildingGrad)" />
-
-        {/* Roof */}
-        <rect x="95" y="135" width="210" height="14" rx="2" fill="white" opacity="0.95" />
-
-        {/* Windows grid — 5 floors x 4 windows, last floor highlighted (yours) */}
-        {Array.from({ length: 5 }).map((_, floor) => {
-          const y = 165 + floor * 64
-          const isYours = floor === 2
-          return Array.from({ length: 4 }).map((__, col) => {
-            const x = 120 + col * 42
-            return (
-              <g key={`${floor}-${col}`}>
-                <rect
-                  x={x}
-                  y={y}
-                  width={30}
-                  height={48}
-                  rx={3}
-                  fill={isYours ? 'url(#windowGrad)' : 'white'}
-                  opacity={isYours ? 1 : 0.3}
-                >
-                  {!isYours && (col + floor) % 3 === 0 && (
-                    <animate attributeName="opacity" values="0.3;0.6;0.3" dur="4s" begin={`${col * 0.3}s`} repeatCount="indefinite" />
-                  )}
-                </rect>
-              </g>
-            )
-          })
-        })}
-
-        {/* Entrance */}
-        <rect x="180" y="450" width="40" height="50" rx="4" fill="white" opacity="0.85" />
-      </svg>
+      {/* Real project render */}
+      <img
+        src="/projects/nurli-diyor-1.jpg"
+        alt="Nurli Diyor Residence — aerial render"
+        className="absolute inset-0 w-full h-full object-cover"
+        loading="eager"
+      />
+      {/* Gradient overlay for legibility */}
+      <div className="absolute inset-0 bg-gradient-to-t from-brand-900/80 via-brand-900/10 to-transparent" />
 
       {/* Floating info chips */}
       <div className="absolute top-6 left-6 right-6 flex items-start justify-between pointer-events-none">
@@ -176,8 +126,8 @@ function BuildingShowcase() {
         <div className="glass rounded-element p-4 shadow-card">
           <div className="flex items-center justify-between gap-3">
             <div>
-              <p className="text-[10px] text-ink-muted uppercase tracking-wider">1-blok · 5 qavat</p>
-              <p className="text-base font-bold text-ink mt-0.5">3 qavat tugallandi</p>
+              <p className="text-[10px] text-ink-muted uppercase tracking-wider">9 qavat · 1 blok</p>
+              <p className="text-base font-bold text-ink mt-0.5">Birinchi loyiha</p>
             </div>
             <Logo size={40} background="dark" />
           </div>
