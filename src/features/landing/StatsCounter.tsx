@@ -12,7 +12,7 @@ interface Stat {
 const stats: Stat[] = [
   { icon: Users, value: 320, suffix: '+', label: 'Mamnun mijoz', description: 'Topshirilgan kvartiralar' },
   { icon: Award, value: 12, label: 'Yillik tajriba', description: 'Bozorda 2014-yildan' },
-  { icon: Building, value: 2, label: 'Faol qurilish', description: 'Navruz Residence + Salom Plaza' },
+  { icon: Building, value: 2, label: 'Faol qurilish', description: 'Nurli Diyor + Salom Plaza' },
   { icon: ShieldCheck, value: 98, suffix: '%', label: 'Mamnunlik', description: '240 ta sharhlar bo\'yicha' },
 ]
 

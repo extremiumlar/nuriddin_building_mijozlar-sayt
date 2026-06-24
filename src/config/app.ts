@@ -6,7 +6,10 @@ export const appConfig = {
   useMock: (import.meta.env.VITE_USE_MOCK ?? 'true') !== 'false',
   companyName: 'NURIDDIN BUILDINGS',
   companyShort: 'Nuriddin',
+  projectName: 'Nurli Diyor Residence',
   slogan: "Uy emas, orzu quramiz!",
   tagline: "Qadriyatli qo'shnilar — hammaga sotilmaydi",
-  supportPhone: '+998 71 200 00 00',
+  supportPhone: '+998 77 275 86 77',
+  salesOfficeUrl: 'https://t.me/Nurli_diyor_Residence/890',
+  amenitiesIntro: '−1 qavatda aholi uchun 10 ta maxsus qulaylik',
 } as const

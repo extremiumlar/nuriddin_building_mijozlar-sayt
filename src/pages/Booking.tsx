@@ -45,12 +45,17 @@ export function BookingPage() {
     <div className="space-y-5">
       {/* Hero */}
       <div className="bg-gradient-to-br from-brand via-brand-700 to-brand-900 rounded-card p-5 lg:p-6 text-white relative overflow-hidden">
-        <div className="absolute -top-24 -right-16 h-64 w-64 rounded-full bg-gold/15 blur-3xl pointer-events-none" />
+        <div className="absolute -top-24 -right-16 h-64 w-64 rounded-full bg-gold/20 blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-20 -left-16 h-56 w-56 rounded-full bg-gold/10 blur-3xl pointer-events-none" />
         <div className="relative flex items-start justify-between gap-4 flex-wrap">
           <div>
-            <h1 className="text-xl lg:text-2xl font-extrabold tracking-tight">Hamjamiyat infratuzilmasi</h1>
-            <p className="text-brand-100 text-sm mt-1">
-              {facilityList.length} ta joy mavjud — sport, dam olish, ish va kulgi uchun
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-pill bg-gold/20 text-gold-200 text-[10px] font-bold uppercase tracking-wider mb-2">
+              <Sparkles className="h-3 w-3" />
+              Nurli Diyor Residence
+            </div>
+            <h1 className="text-xl lg:text-2xl font-extrabold tracking-tight">−1 qavatdagi qulayliklar</h1>
+            <p className="text-gold-100/90 text-sm mt-1">
+              {facilityList.length} ta maxsus joy — sport, dam olish, ijod va o'yin uchun
             </p>
             <div className="mt-3 flex flex-wrap gap-1.5">
               <Stat label="Bepul" value={`${facilityList.filter((f) => f.isFree).length} ta`} />
@@ -85,7 +90,7 @@ export function BookingPage() {
         )}
       </div>
 
-      {/* Facility cards grid */}
+      {/* Facility cards grid — image preview on each card */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
         {filtered.map((f) => {
           const isActive = facility === f.type
@@ -94,53 +99,55 @@ export function BookingPage() {
               key={f.type}
               onClick={() => setFacility(f.type)}
               className={cn(
-                'rounded-card border p-3.5 text-left transition-all relative',
+                'group rounded-card border overflow-hidden text-left transition-all relative',
                 isActive
-                  ? 'bg-brand text-white border-brand shadow-card-hover scale-[1.02]'
-                  : 'bg-surface border-border hover:border-brand-200 hover:shadow-card-hover',
+                  ? 'border-brand shadow-card-hover ring-2 ring-brand/30 scale-[1.02]'
+                  : 'border-border hover:border-brand-200 hover:shadow-card-hover hover:-translate-y-0.5',
               )}
             >
+              {/* Image */}
+              <div className="relative aspect-[4/3] bg-surface-subtle overflow-hidden">
+                <img
+                  src={f.imageUrl}
+                  alt={f.label}
+                  loading="lazy"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                {/* Icon badge */}
+                <div className={cn('absolute top-2 left-2 h-8 w-8 rounded-element backdrop-blur flex items-center justify-center', f.color, 'bg-white/85')}>
+                  <f.icon className="h-4 w-4" strokeWidth={2} />
+                </div>
+                {/* Price badge */}
+                <div className="absolute top-2 right-2">
+                  {f.isFree ? (
+                    <span className="text-[10px] px-1.5 py-0.5 rounded-pill font-bold bg-success text-white">
+                      BEPUL
+                    </span>
+                  ) : (
+                    <span className="text-[10px] px-1.5 py-0.5 rounded-pill font-bold bg-gold text-white">
+                      {formatUZS(f.pricePerHour ?? 0, { short: true })}/s
+                    </span>
+                  )}
+                </div>
+                {/* Bottom info */}
+                <div className="absolute bottom-2 left-2 right-2 text-white">
+                  <p className="text-sm font-bold leading-tight truncate">{f.label}</p>
+                  <p className="text-[10px] text-white/80 inline-flex items-center gap-1 mt-0.5">
+                    <Users className="h-2.5 w-2.5" />
+                    {f.capacity} kishilik
+                  </p>
+                </div>
+              </div>
+
+              {/* Description (only on active or hover) */}
               <div
                 className={cn(
-                  'h-10 w-10 rounded-[10px] flex items-center justify-center',
-                  isActive ? 'bg-white/15 text-white' : f.color,
+                  'px-2.5 py-2 text-[11px] line-clamp-2',
+                  isActive ? 'bg-brand text-white' : 'bg-surface text-ink-muted',
                 )}
               >
-                <f.icon className="h-5 w-5" strokeWidth={1.75} />
-              </div>
-              <p className={cn('text-sm font-semibold mt-2.5', isActive ? 'text-white' : 'text-ink')}>{f.label}</p>
-              <p className={cn('text-[11px] mt-0.5 line-clamp-1', isActive ? 'text-brand-100' : 'text-ink-muted')}>
                 {f.description}
-              </p>
-              <div className="flex items-center gap-1.5 mt-2 flex-wrap">
-                {f.isFree ? (
-                  <span
-                    className={cn(
-                      'text-[10px] px-1.5 py-0.5 rounded-full font-medium',
-                      isActive ? 'bg-white/15 text-white' : 'bg-success-bg text-success-fg',
-                    )}
-                  >
-                    BEPUL
-                  </span>
-                ) : (
-                  <span
-                    className={cn(
-                      'text-[10px] px-1.5 py-0.5 rounded-full font-medium',
-                      isActive ? 'bg-white/15 text-white' : 'bg-warning-bg text-warning-fg',
-                    )}
-                  >
-                    {formatUZS(f.pricePerHour ?? 0, { short: true })}/soat
-                  </span>
-                )}
-                <span
-                  className={cn(
-                    'text-[10px] inline-flex items-center gap-0.5',
-                    isActive ? 'text-brand-100' : 'text-ink-subtle',
-                  )}
-                >
-                  <Users className="h-2.5 w-2.5" />
-                  {f.capacity}
-                </span>
               </div>
             </button>
           )
@@ -156,31 +163,53 @@ export function BookingPage() {
       {/* Active facility info + calendar */}
       <div className="grid lg:grid-cols-3 gap-5">
         <div className="lg:col-span-2 space-y-4">
-          <Card className="p-4 flex items-center gap-4">
-            <div
-              className={cn(
-                'h-14 w-14 rounded-[12px] flex items-center justify-center shrink-0',
-                active.color,
-              )}
-            >
-              <active.icon className="h-7 w-7" strokeWidth={1.75} />
-            </div>
-            <div className="flex-1 min-w-0">
-              <h2 className="text-base font-semibold text-ink">{active.label}</h2>
-              <p className="text-xs text-ink-muted">{active.description}</p>
-              <div className="flex items-center gap-2 mt-1.5 flex-wrap">
-                <Badge tone="neutral">
-                  {String(active.hoursFrom).padStart(2, '0')}:00 – {String(active.hoursTo).padStart(2, '0')}:00
-                </Badge>
-                <Badge tone="neutral">
-                  <Users className="h-3 w-3" />
-                  Sig'imi: {active.capacity} kishi
-                </Badge>
-                {active.isFree ? (
-                  <Badge tone="success">Bepul</Badge>
-                ) : (
-                  <Badge tone="warning">{formatUZS(active.pricePerHour ?? 0, { short: true })}/soat</Badge>
-                )}
+          {/* Hero card with large image */}
+          <Card className="overflow-hidden">
+            <div className="relative aspect-[21/9] bg-surface-subtle">
+              <img
+                src={active.imageUrl}
+                alt={active.label}
+                className="w-full h-full object-cover"
+                loading="eager"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+
+              {/* Floating tag */}
+              <div className="absolute top-4 left-4 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-pill bg-gold/95 text-white text-[10px] font-bold uppercase tracking-wider">
+                Nurli Diyor · −1 qavat
+              </div>
+
+              {/* Bottom info */}
+              <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
+                <div className="flex items-end justify-between gap-4 flex-wrap">
+                  <div className="flex items-center gap-3">
+                    <div className={cn('h-14 w-14 rounded-element flex items-center justify-center backdrop-blur', active.color, 'bg-white/90')}>
+                      <active.icon className="h-7 w-7" strokeWidth={2} />
+                    </div>
+                    <div>
+                      <h2 className="text-2xl font-extrabold tracking-tight">{active.label}</h2>
+                      <p className="text-sm text-white/85">{active.description}</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 mt-3 flex-wrap">
+                  <span className="inline-flex items-center gap-1 px-2 py-1 rounded-pill bg-white/15 backdrop-blur text-xs font-semibold">
+                    🕐 {String(active.hoursFrom).padStart(2, '0')}:00 – {String(active.hoursTo).padStart(2, '0')}:00
+                  </span>
+                  <span className="inline-flex items-center gap-1 px-2 py-1 rounded-pill bg-white/15 backdrop-blur text-xs font-semibold">
+                    <Users className="h-3 w-3" />
+                    {active.capacity} kishi
+                  </span>
+                  {active.isFree ? (
+                    <span className="inline-flex items-center gap-1 px-2 py-1 rounded-pill bg-success text-white text-xs font-bold uppercase tracking-wider">
+                      Bepul
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center gap-1 px-2 py-1 rounded-pill bg-gold text-white text-xs font-bold">
+                      {formatUZS(active.pricePerHour ?? 0, { short: true })}/soat
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
           </Card>

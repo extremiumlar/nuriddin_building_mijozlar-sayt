@@ -7,7 +7,7 @@ const sections = [
   {
     title: 'Loyihalar',
     links: [
-      { label: 'Navruz Residence', href: '#' },
+      { label: 'Nurli Diyor Residence', href: '#' },
       { label: 'Bahor Park', href: '#' },
       { label: 'Quyosh Tower', href: '#' },
       { label: 'Salom Plaza', href: '#' },

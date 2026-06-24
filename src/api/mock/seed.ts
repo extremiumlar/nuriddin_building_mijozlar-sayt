@@ -46,10 +46,10 @@ export const mockApartmentInfo: ApartmentInfo = {
   rooms: 2,
   area: 65,
   view: 'street',
-  address: 'Mirobod ko\'chasi, 12-uy, Yashnobod tumani, Toshkent',
+  address: 'Lakatsiya, Toshkent shahri',
   constructionProgress: 72,
   estimatedDelivery: '2026-12-20T00:00:00Z',
-  objectName: 'Navruz Residence',
+  objectName: 'Nurli Diyor Residence',
 }
 
 export const mockFinancialSummary: FinancialSummary = {

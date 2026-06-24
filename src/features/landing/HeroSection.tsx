@@ -163,7 +163,7 @@ function BuildingShowcase() {
       <div className="absolute top-6 left-6 right-6 flex items-start justify-between pointer-events-none">
         <div className="glass rounded-element px-3 py-2 shadow-card">
           <p className="text-[10px] text-ink-muted uppercase tracking-wider">Loyiha</p>
-          <p className="text-sm font-bold text-ink leading-tight">Navruz Residence</p>
+          <p className="text-sm font-bold text-ink leading-tight">Nurli Diyor</p>
         </div>
         <div className="glass rounded-element px-3 py-2 shadow-card">
           <p className="text-[10px] text-ink-muted uppercase tracking-wider">Topshirish</p>

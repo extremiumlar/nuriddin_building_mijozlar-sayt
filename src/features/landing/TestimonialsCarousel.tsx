@@ -15,7 +15,7 @@ interface Testimonial {
 const items: Testimonial[] = [
   {
     name: 'Akbar Aliyev',
-    apartment: 'Navruz Residence · 304',
+    apartment: 'Nurli Diyor Residence · 304',
     rating: 5,
     quote:
       "Har juma bosh injener videosi keladi — bu shaffoflikni hech qachon ko'rmagandim. To'lov grafigi ham juda tushunarli, hatto qariyalar uchun ham qulay.",

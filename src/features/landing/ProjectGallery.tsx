@@ -12,7 +12,7 @@ interface Project {
 }
 
 const projects: Project[] = [
-  { name: 'Navruz Residence', year: '2026', apartments: 38, location: 'Yashnobod, Toshkent', status: 'active', accent: 'from-brand to-brand-900' },
+  { name: 'Nurli Diyor Residence', year: '2026', apartments: 38, location: 'Lakatsiya, Toshkent', status: 'active', accent: 'from-brand to-brand-900' },
   { name: 'Bahor Park', year: '2025', apartments: 24, location: 'Mirzo-Ulug\'bek, Toshkent', status: 'completed', accent: 'from-success to-emerald-900' },
   { name: 'Quyosh Tower', year: '2024', apartments: 96, location: 'Yunusobod, Toshkent', status: 'completed', accent: 'from-purple-500 to-purple-900' },
   { name: 'Oltin Tepa', year: '2024', apartments: 42, location: 'Chilonzor, Toshkent', status: 'completed', accent: 'from-gold to-amber-700' },

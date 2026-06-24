@@ -289,17 +289,18 @@ export interface LotteryWinner {
 }
 
 // === Bookings ===
+// Nurli Diyor Residence — -1 qavatdagi 10 ta qulaylik
 export type FacilityType =
+  | 'it_room'
+  | 'library'
+  | 'gym'
+  | 'chess'
   | 'billiard'
   | 'table_tennis'
-  | 'gym'
-  | 'bbq'
-  | 'swimming_pool'
-  | 'sauna'
-  | 'cinema'
+  | 'karaoke'
+  | 'playstation'
+  | 'piano'
   | 'kids_playground'
-  | 'conference'
-  | 'coworking'
 export type SlotStatus = 'free' | 'taken' | 'mine'
 
 export interface FacilityMeta {
@@ -311,6 +312,7 @@ export interface FacilityMeta {
   capacity: number
   isFree: boolean
   pricePerHour?: number
+  imageUrl: string
 }
 
 export interface BookingSlot {
