@@ -1,5 +1,6 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Award, ArrowRight, Layers, ShieldCheck, Sparkles } from 'lucide-react'
+import { Award, ArrowRight, Building, Layers, ShieldCheck, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Logo } from '@/components/Logo'
 import { FadeUp, Stagger, StaggerItem } from '@/components/motion'
@@ -97,15 +98,26 @@ export function HeroSection() {
 }
 
 function BuildingShowcase() {
+  const [imgFailed, setImgFailed] = useState(false)
+
   return (
     <div className="relative aspect-[4/5] lg:aspect-[5/6] rounded-dialog overflow-hidden bg-gradient-to-br from-brand to-brand-900 shadow-elevated">
-      {/* Real project render */}
-      <img
-        src="/projects/nurli-diyor-1.jpg"
-        alt="Nurli Diyor Residence — aerial render"
-        className="absolute inset-0 w-full h-full object-cover"
-        loading="eager"
-      />
+      {/* Real project render with fallback */}
+      {!imgFailed ? (
+        <img
+          src="/projects/nurli-diyor-1.jpg"
+          alt="Nurli Diyor Residence — aerial render"
+          className="absolute inset-0 w-full h-full object-cover"
+          loading="eager"
+          onError={() => setImgFailed(true)}
+        />
+      ) : (
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-gold-300">
+          <Building className="h-20 w-20 mb-3 opacity-80" />
+          <p className="text-sm font-bold uppercase tracking-wider opacity-90">Nurli Diyor Residence</p>
+          <p className="text-xs mt-1 opacity-70">Render tez kunda yuklanadi</p>
+        </div>
+      )}
       {/* Gradient overlay for legibility */}
       <div className="absolute inset-0 bg-gradient-to-t from-brand-900/80 via-brand-900/10 to-transparent" />
 

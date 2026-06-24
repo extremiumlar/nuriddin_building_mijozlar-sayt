@@ -4,6 +4,7 @@ import {
   CalendarCheck,
   ChevronLeft,
   ChevronRight,
+  ImageIcon,
   Layers,
   MapPin,
   ShieldCheck,
@@ -11,6 +12,38 @@ import {
 } from 'lucide-react'
 import { ScrollReveal } from '@/components/motion'
 import { cn } from '@/lib/utils'
+
+function ImageWithFallback({
+  src,
+  alt,
+  className,
+  loading,
+}: {
+  src: string
+  alt: string
+  className?: string
+  loading?: 'eager' | 'lazy'
+}) {
+  const [failed, setFailed] = useState(false)
+  if (failed) {
+    return (
+      <div className={cn('flex flex-col items-center justify-center bg-gradient-to-br from-brand-700 to-brand-900 text-gold-300', className)}>
+        <ImageIcon className="h-12 w-12 mb-2 opacity-70" />
+        <p className="text-xs font-medium uppercase tracking-wider opacity-80">Render tez kunda</p>
+        <p className="text-[10px] mt-1 opacity-60 text-center px-4">{alt}</p>
+      </div>
+    )
+  }
+  return (
+    <img
+      src={src}
+      alt={alt}
+      className={className}
+      loading={loading}
+      onError={() => setFailed(true)}
+    />
+  )
+}
 
 interface Render {
   src: string
@@ -47,7 +80,7 @@ const renders: Render[] = [
 ]
 
 const highlights = [
-  { icon: Building, label: '1 blok', sub: 'cheklangan tanlov' },
+  { icon: Building, label: '5 blok', sub: 'turli xil planirovkalar' },
   { icon: Layers, label: '9 qavat', sub: 'zamonaviy arxitektura' },
   { icon: Sparkles, label: '10 ta qulaylik', sub: '−1 qavatda' },
   { icon: ShieldCheck, label: 'Quyosh panellari', sub: 'energiya tejamkor' },
@@ -103,16 +136,20 @@ export function ProjectShowcase() {
               className="relative aspect-[16/9] rounded-dialog overflow-hidden bg-ink shadow-elevated"
             >
               {renders.map((r, i) => (
-                <img
+                <div
                   key={r.src}
-                  src={r.src}
-                  alt={r.alt}
-                  loading={i === 0 ? 'eager' : 'lazy'}
                   className={cn(
-                    'absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-apple',
+                    'absolute inset-0 transition-opacity duration-500 ease-apple',
                     i === idx ? 'opacity-100' : 'opacity-0',
                   )}
-                />
+                >
+                  <ImageWithFallback
+                    src={r.src}
+                    alt={r.alt}
+                    loading={i === 0 ? 'eager' : 'lazy'}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               ))}
               {/* Gradient overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
@@ -174,7 +211,7 @@ export function ProjectShowcase() {
                   )}
                   aria-label={`${i + 1}-rasm`}
                 >
-                  <img src={r.src} alt={r.alt} className="w-full h-full object-cover" loading="lazy" />
+                  <ImageWithFallback src={r.src} alt={r.alt} className="w-full h-full object-cover" loading="lazy" />
                 </button>
               ))}
             </div>
