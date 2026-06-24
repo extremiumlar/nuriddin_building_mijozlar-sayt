@@ -74,7 +74,7 @@ export const facilityMeta: Record<FacilityType, FacilityMeta & { icon: LucideIco
     isFree: true,
     icon: Diamond,
     color: 'text-purple-600 bg-purple-50 dark:bg-purple-500/15',
-    imageUrl: 'https://images.unsplash.com/photo-1615722440048-da4fd9202651?w=1200&q=80&auto=format&fit=crop',
+    imageUrl: 'https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?w=1200&q=80&auto=format&fit=crop',
   },
   table_tennis: {
     type: 'table_tennis',
@@ -136,7 +136,7 @@ export const facilityMeta: Record<FacilityType, FacilityMeta & { icon: LucideIco
     isFree: true,
     icon: Baby,
     color: 'text-rose-600 bg-rose-50 dark:bg-rose-500/15',
-    imageUrl: 'https://images.unsplash.com/photo-1597531072931-1b9eb91d4e92?w=1200&q=80&auto=format&fit=crop',
+    imageUrl: 'https://images.unsplash.com/photo-1576037728058-fe4748d14e97?w=1200&q=80&auto=format&fit=crop',
   },
 }
 
