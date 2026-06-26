@@ -63,8 +63,8 @@ export function LandingFooter() {
               </div>
               <div className="flex items-center gap-2 text-ink-muted">
                 <Mail className="h-4 w-4 text-brand shrink-0" />
-                <a href="mailto:info@buildco.uz" className="hover:text-ink">
-                  info@buildco.uz
+                <a href="mailto:nuriddinbuildingsteam@nuriddinbuildings.com" className="hover:text-ink break-all">
+                  nuriddinbuildingsteam@nuriddinbuildings.com
                 </a>
               </div>
               <div className="flex items-center gap-2 text-ink-muted">
