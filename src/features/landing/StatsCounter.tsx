@@ -14,7 +14,7 @@ const stats: Stat[] = [
   { icon: Building, value: 1, label: 'Birinchi loyiha', description: 'Nurli Diyor Residence' },
   { icon: Layers, value: 9, label: 'Qavat', description: 'zamonaviy arxitektura' },
   { icon: Sparkles, value: 10, label: 'Maxsus qulaylik', description: "−1 qavatda" },
-  { icon: CalendarCheck, value: 2026, label: 'Topshirish', description: 'dekabr oyi' },
+  { icon: CalendarCheck, value: 2027, label: 'Topshirish', description: 'oxiri / 2028 boshi' },
 ]
 
 export function StatsCounter() {

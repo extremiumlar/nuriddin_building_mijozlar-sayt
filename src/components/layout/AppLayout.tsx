@@ -9,7 +9,7 @@ const pageSubtitles: Record<string, string> = {
   '/dashboard': 'Umumiy ko\'rinish',
   '/construction': 'Real vaqt qurilish jarayoni',
   '/payments': 'Grafik, tarix va eslatmalar',
-  '/lottery': 'Jonli efir va g\'oliblar',
+  '/lottery': 'Har oylik omadli mijoz tanlovi',
   '/booking': 'Bilyard, tennis, gym, BBQ',
   '/profile': 'Hujjatlar, referal, murojaatlar',
 }

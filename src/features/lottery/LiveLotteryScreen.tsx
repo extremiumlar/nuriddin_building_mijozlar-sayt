@@ -69,7 +69,7 @@ export function LiveLotteryScreen({ lottery }: Props) {
           <div>
             <Badge tone="brand" className="bg-white/15 text-white">
               <Sparkles className="h-3 w-3" />
-              Jonli loterеya
+              Oylik omadli mijoz
             </Badge>
             <h2 className="text-2xl lg:text-3xl font-bold mt-2.5">{lottery.name}</h2>
             <p className="text-brand-100 text-sm mt-1">Bosh sovrin: {lottery.prize}</p>
@@ -83,7 +83,7 @@ export function LiveLotteryScreen({ lottery }: Props) {
 
         {state === 'idle' && (
           <div className="bg-white/10 backdrop-blur rounded-card p-5">
-            <CountdownTimer endDate={lottery.date} label="Loterеyagacha qoldi" size="lg" />
+            <CountdownTimer endDate={lottery.date} label="Omadli mijoz tanlovigacha qoldi" size="lg" />
             <p className="text-xs text-brand-100 mt-4">
               Jami chiptalar: <span className="font-semibold text-white">{lottery.ticketCount.toLocaleString()}</span>
             </p>

@@ -1,0 +1,797 @@
+{
+  "info": {
+    "_postman_id": "d238f60b-dcb1-4849-b502-5b048e43ed13",
+    "name": "open_api",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "27555847"
+  },
+  "item": [
+    {
+      "name": "request status",
+      "item": [
+        {
+          "name": "request statusini tekshirish",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Open-Api-Token",
+                "value": "{{key}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{open-api}}/v1/open-api/request/019b22c5-12bc-4753-a998-d82cbc506ea6",
+              "host": [
+                "{{open-api}}"
+              ],
+              "path": [
+                "v1",
+                "open-api",
+                "request",
+                "019b22c5-12bc-4753-a998-d82cbc506ea6"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "api lead",
+      "item": [
+        {
+          "name": "Lead save",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Open-Api-Token",
+                "value": "{{key}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"balance\": 100,\r\n  \"currencyId\": 24,\r\n  \"pipeStatusId\": 979,\r\n  \"name\": \"Open api da yaratildi\",\r\n  \"contacts\": [\r\n    {\r\n      \"name\": \"Sarvar\",\r\n      \"phones\": [\r\n        \"+998990009090\"\r\n      ],\r\n      \"fields\": []\r\n    }\r\n  ],\r\n  \"fields\": []\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{open-api}}/v1/open-api/lead",
+              "host": [
+                "{{open-api}}"
+              ],
+              "path": [
+                "v1",
+                "open-api",
+                "lead"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "lead get",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Open-Api-Token",
+                "value": "{{key}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{open-api}}/v1/open-api/lead/34606",
+              "host": [
+                "{{open-api}}"
+              ],
+              "path": [
+                "v1",
+                "open-api",
+                "lead",
+                "34606"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "lead filter",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Open-Api-Token",
+                "value": "{{key}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"page\": 1,\r\n  \"size\": 10,\r\n  \"search\": \"996659998\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{open-api}}/v1/open-api/lead/filter",
+              "host": [
+                "{{open-api}}"
+              ],
+              "path": [
+                "v1",
+                "open-api",
+                "lead",
+                "filter"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Lead delete",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "X-Open-Api-Token",
+                "value": "{{key}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{open-api}}/v1/open-api/lead/49120",
+              "host": [
+                "{{open-api}}"
+              ],
+              "path": [
+                "v1",
+                "open-api",
+                "lead",
+                "49120"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "External api uchun ishlatiladi.\n\n- Lead saqlash\n    \n- Lead ni olish\n    \n- Lead lar filteri\n    \n- Lead ni o'chirish\n    \n\nAuthorization: headerda `X-Open-Api-Token` da yuboriladi"
+    },
+    {
+      "name": "api lead-note",
+      "item": [
+        {
+          "name": "note ni saqlash",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Open-Api-Token",
+                "value": "{{key}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "[\r\n  {\r\n    \"isPin\": true,\r\n    \"text\": \"+998996659998\"\r\n  },\r\n\r\n  {\r\n    \"isPin\": false,\r\n    \"text\": \"Hello world\"\r\n  }\r\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{open-api}}/v1/open-api/lead-note/{leadId}/list",
+              "host": [
+                "{{open-api}}"
+              ],
+              "path": [
+                "v1",
+                "open-api",
+                "lead-note",
+                "{leadId}",
+                "list"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "lead note larini olish",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Open-Api-Token",
+                "value": "{{key}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{open-api}}/v1/open-api/lead-note/{leadId}/list",
+              "host": [
+                "{{open-api}}"
+              ],
+              "path": [
+                "v1",
+                "open-api",
+                "lead-note",
+                "{leadId}",
+                "list"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "note ni o'chirish",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "X-Open-Api-Token",
+                "value": "{{key}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{open-api}}/v1/open-api/lead-note/{leadId}/delete/{noteId}",
+              "host": [
+                "{{open-api}}"
+              ],
+              "path": [
+                "v1",
+                "open-api",
+                "lead-note",
+                "{leadId}",
+                "delete",
+                "{noteId}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "api lead- task",
+      "item": [
+        {
+          "name": "filter",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Open-Api-Token",
+                "value": "{{key}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"page\": 1,\r\n  \"size\": 15,\r\n  \"leadId\": 34606,\r\n  \"assignById\": 95,\r\n  \"deadlineStart\": 1730419200,\r\n  \"deadlineFinish\": 1733011200,\r\n  \"status\": [\"OPEN\", \"SUCCESS\"]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{open-api}}/v1/open-api/lead-task/filter",
+              "host": [
+                "{{open-api}}"
+              ],
+              "path": [
+                "v1",
+                "open-api",
+                "lead-task",
+                "filter"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "lead task save",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Open-Api-Token",
+                "value": "{{ley}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"text\": \"Mijozga qo'ng'iroq qilish\",\r\n  \"leadTaskTypeId\": 7,\r\n  \"assignedById\": 95,\r\n  \"deadlineStartTimestamp\": 1730419200,\r\n  \"deadlineFinishTimestamp\": 1733011200\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{open-api}}/v1/open-api/lead-task/{leadId}/save",
+              "host": [
+                "{{open-api}}"
+              ],
+              "path": [
+                "v1",
+                "open-api",
+                "lead-task",
+                "{leadId}",
+                "save"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "lead task close",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Open-Api-Token",
+                "value": "{{key}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"id\": 501,\r\n  \"status\": \"SUCCESS\",\r\n  \"closedText\": \"Mijoz bilan telefon orqali bog'lanildi\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{open-api}}/v1/open-api/lead-task/{leadId}/close",
+              "host": [
+                "{{open-api}}"
+              ],
+              "path": [
+                "v1",
+                "open-api",
+                "lead-task",
+                "{leadId}",
+                "close"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "taskni o'chirish",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "X-Open-Api-Token",
+                "value": "{{key}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{open-api}}/v1/open-api/lead-task/{leadId}/delete/{taskId}",
+              "host": [
+                "{{open-api}}"
+              ],
+              "path": [
+                "v1",
+                "open-api",
+                "lead-task",
+                "{leadId}",
+                "delete",
+                "{taskId}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "lead task types",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Open-Api-Token",
+                "value": "{{key}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{open-api}}/v1/open-api/lead-task/types",
+              "host": [
+                "{{open-api}}"
+              ],
+              "path": [
+                "v1",
+                "open-api",
+                "lead-task",
+                "types"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "api address",
+      "item": [
+        {
+          "name": "Barcha davlatlar (country) ro'yxati",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Auth",
+                "value": "{{key}}",
+                "disabled": false
+              }
+            ],
+            "url": {
+              "raw": "{{open-api}}/v1/open-api/address/country",
+              "host": [
+                "{{open-api}}"
+              ],
+              "path": [
+                "v1",
+                "open-api",
+                "address",
+                "country"
+              ]
+            },
+            "description": "Generated from cURL: curl -X GET \"{{baseUrl}}/v1/open-api/address/country\" -H \"X-Auth: gJkTRWL1nib4QsuPM1M43WIWIs8mXgs0FFlzsi7Zhr1jOTUnFOkz4-KNTodW1J1gjJqvO1AocF3rfHEzHXHfbA\""
+          },
+          "response": []
+        },
+        {
+          "name": "Country dagi viloyat (city) lar ro'yxati",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Auth",
+                "value": "{{key}}",
+                "disabled": false
+              }
+            ],
+            "url": {
+              "raw": "{{open-api}}/v1/open-api/address/city/86",
+              "host": [
+                "{{open-api}}"
+              ],
+              "path": [
+                "v1",
+                "open-api",
+                "address",
+                "city",
+                "86"
+              ]
+            },
+            "description": "Generated from cURL: curl -X GET \"{{baseUrl}}/v1/open-api/address/city/86\" -H \"X-Auth: gJkTRWL1nib4QsuPM1M43WIWIs8mXgs0FFlzsi7Zhr1jOTUnFOkz4-KNTodW1J1gjJqvO1AocF3rfHEzHXHfbA\""
+          },
+          "response": []
+        },
+        {
+          "name": "City dagi tuman (district) lar ro'yxati",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Auth",
+                "value": "{{key}}",
+                "disabled": false
+              }
+            ],
+            "url": {
+              "raw": "{{open-api}}/v1/open-api/address/district/4142",
+              "host": [
+                "{{open-api}}"
+              ],
+              "path": [
+                "v1",
+                "open-api",
+                "address",
+                "district",
+                "4142"
+              ]
+            },
+            "description": "Generated from cURL: curl -X GET \"{{baseUrl}}/v1/open-api/address/district/4142\" -H \"X-Auth: gJkTRWL1nib4QsuPM1M43WIWIs8mXgs0FFlzsi7Zhr1jOTUnFOkz4-KNTodW1J1gjJqvO1AocF3rfHEzHXHfbA\""
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "api contract",
+      "item": [
+        {
+          "name": "contract-payments",
+          "item": [
+            {
+              "name": "shartnoma to'lovlarini olish (sahifalab)",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "X-Open-Api-Token",
+                    "value": "uysot_6c06e45aa814a57b17d6088cb9d692dd7ce33834f587ec9b1d65424fae1eaf19db49657df1836c31",
+                    "disabled": false
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/open-api/contract-payment/1409?page=1&size=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "open-api",
+                    "contract-payment",
+                    "1409"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "20"
+                    }
+                  ]
+                },
+                "description": "Generated from cURL: curl -X GET \"{{baseUrl}}/v1/open-api/contract-payment/1409?page=1&size=20\" -H \"X-Open-Api-Token: uysot_6c06e45aa814a57b17d6088cb9d692dd7ce33834f587ec9b1d65424fae1eaf19db49657df1836c31\""
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "contract-fields",
+          "item": [
+            {
+              "name": "contract fields",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "X-Open-Api-Token",
+                    "value": "{{ley}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/open-api/contrac-field",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "open-api",
+                    "contrac-field"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "shartnomalarni filterlash",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false
+              },
+              {
+                "key": "X-Open-Api-Token",
+                "value": "uysot_6c06e45aa814a57b17d6088cb9d692dd7ce33834f587ec9b1d65424fae1eaf19db49657df1836c31",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"page\": 1,\r\n    \"size\": 15,\r\n    \"search\": \"\",\r\n    \"contractNumber\": \"\",\r\n    \"startDate\": \"01.01.2025\",\r\n    \"finishDate\": \"31.12.2025\",\r\n    \"responsibleByIds\": [],\r\n    \"currencies\": [\r\n        24\r\n    ],\r\n    \"statuses\": [\r\n        \"ACTIVE\"\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/v1/open-api/contract/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "open-api",
+                "contract",
+                "filter"
+              ]
+            },
+            "description": "Generated from cURL: curl -X POST \"{{baseUrl}}/v1/open-api/contract/filter\" -H \"Content-Type: application/json\" -H \"X-Open-Api-Token: uysot_6c06e45aa814a57b17d6088cb9d692dd7ce33834f587ec9b1d65424fae1eaf19db49657df1836c31\" -d \"{\\n  \\\"page\\\": 1,\\n  \\\"size\\\": 15,\\n  \\\"search\\\": \\\"\\\",\\n  \\\"contractNumber\\\": \\\"\\\",\\n  \\\"startDate\\\": \\\"01.01.2025\\\",\\n  \\\"finishDate\\\": \\\"31.12.2025\\\",\\n  \\\"responsibleByIds\\\": [],\\n  \\\"currencies\\\": [24],\\n  \\\"statuses\\\": [\\\"ACTIVE\\\"]\\n}\""
+          },
+          "response": []
+        },
+        {
+          "name": "shartnomani id bo'yicha olish",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Open-Api-Token",
+                "value": "uysot_6c06e45aa814a57b17d6088cb9d692dd7ce33834f587ec9b1d65424fae1eaf19db49657df1836c31",
+                "disabled": false
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/open-api/contract/1409",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "open-api",
+                "contract",
+                "1409"
+              ]
+            },
+            "description": "Generated from cURL: curl -X GET \"{{baseUrl}}/v1/open-api/contract/1409\" -H \"X-Open-Api-Token: uysot_6c06e45aa814a57b17d6088cb9d692dd7ce33834f587ec9b1d65424fae1eaf19db49657df1836c31\""
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "api pipe",
+      "item": [
+        {
+          "name": "barcha voronka (pipe) larni olish",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Open-Api-Token",
+                "value": "{{key}}",
+                "disabled": false
+              }
+            ],
+            "url": {
+              "raw": "{{open-api}}/v1/open-api/pipe/all",
+              "host": [
+                "{{open-api}}"
+              ],
+              "path": [
+                "v1",
+                "open-api",
+                "pipe",
+                "all"
+              ]
+            },
+            "description": "Generated from cURL: curl -X GET \"{{baseUrl}}/v1/open-api/pipe/all\" -H \"X-Open-Api-Token: uysot_6c06e45aa814a57b17d6088cb9d692dd7ce33834f587ec9b1d65424fae1eaf19db49657df1836c31\""
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "api crm-fileds",
+      "item": [
+        {
+          "name": "crm field larini olish",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Open-Api-Token",
+                "value": "{{key}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{open-api}}/v1/open-api/crm-field",
+              "host": [
+                "{{open-api}}"
+              ],
+              "path": [
+                "v1",
+                "open-api",
+                "crm-field"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ]
+}

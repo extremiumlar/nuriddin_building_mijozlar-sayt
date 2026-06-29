@@ -1,5 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { apiClient, unwrap } from './client'
+import {
+  contractToApartmentInfo,
+  contractToFinancialSummary,
+  uysotConfigured,
+  uysotContractApi,
+} from './uysot'
+import { useAuthStore } from '@/store/auth'
 import type {
   ActiveDevice,
   ApartmentInfo,
@@ -64,11 +71,35 @@ export const profileApi = {
 export const useProfile = () =>
   useQuery({ queryKey: ['profile'], queryFn: profileApi.me })
 
-export const useApartmentInfo = () =>
-  useQuery({ queryKey: ['profile', 'apartment'], queryFn: profileApi.apartment })
+export const useApartmentInfo = () => {
+  const contractId = useAuthStore((s) => s.uysotContractId)
+  const useUysot = uysotConfigured && typeof contractId === 'number'
+  return useQuery<ApartmentInfo>({
+    queryKey: ['profile', 'apartment', useUysot ? `uysot-${contractId}` : 'mock'],
+    queryFn: async () => {
+      if (useUysot) {
+        const c = await uysotContractApi.getById(contractId!)
+        return contractToApartmentInfo(c)
+      }
+      return profileApi.apartment()
+    },
+  })
+}
 
-export const useFinancialSummary = () =>
-  useQuery({ queryKey: ['profile', 'financial'], queryFn: profileApi.financial })
+export const useFinancialSummary = () => {
+  const contractId = useAuthStore((s) => s.uysotContractId)
+  const useUysot = uysotConfigured && typeof contractId === 'number'
+  return useQuery<FinancialSummary>({
+    queryKey: ['profile', 'financial', useUysot ? `uysot-${contractId}` : 'mock'],
+    queryFn: async () => {
+      if (useUysot) {
+        const c = await uysotContractApi.getById(contractId!)
+        return contractToFinancialSummary(c)
+      }
+      return profileApi.financial()
+    },
+  })
+}
 
 export const useActiveDevices = () =>
   useQuery({ queryKey: ['profile', 'devices'], queryFn: profileApi.devices })

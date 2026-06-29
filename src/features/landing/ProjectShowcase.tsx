@@ -85,7 +85,7 @@ const highlights = [
   { icon: Sparkles, label: '10 ta qulaylik', sub: '−1 qavatda' },
   { icon: ShieldCheck, label: 'Quyosh panellari', sub: 'energiya tejamkor' },
   { icon: MapPin, label: 'Lakatsiya', sub: 'Toshkent shahri' },
-  { icon: CalendarCheck, label: 'Dek 2026', sub: 'topshirish' },
+  { icon: CalendarCheck, label: '2027 / 2028', sub: 'topshirish' },
 ]
 
 export function ProjectShowcase() {

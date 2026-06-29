@@ -48,7 +48,7 @@ export const mockApartmentInfo: ApartmentInfo = {
   view: 'street',
   address: 'Lakatsiya, Toshkent shahri',
   constructionProgress: 72,
-  estimatedDelivery: '2026-12-20T00:00:00Z',
+  estimatedDelivery: '2027-12-31T00:00:00Z',
   objectName: 'Nurli Diyor Residence',
 }
 
@@ -114,7 +114,7 @@ export const mockBlocks: Block[] = [
     totalFloors: 5,
     completedFloors: 3,
     percentage: 72,
-    deliveryDate: '2026-12-20T00:00:00Z',
+    deliveryDate: '2027-12-31T00:00:00Z',
     status: 'active',
     weeklyRate: 2.4,
     floors: [
@@ -131,7 +131,7 @@ export const mockBlocks: Block[] = [
     totalFloors: 2,
     completedFloors: 1,
     percentage: 58,
-    deliveryDate: '2026-10-10T00:00:00Z',
+    deliveryDate: '2028-01-15T00:00:00Z',
     status: 'active',
     weeklyRate: 3.1,
     floors: [
@@ -248,7 +248,7 @@ export const mockSavedCards: SavedCard[] = [
 export const mockLotteries: Lottery[] = [
   {
     id: 'lot-1',
-    name: 'Iyun oylik loterеya',
+    name: 'Iyun oylik omadli mijoz',
     date: '2026-06-30T18:00:00Z',
     prize: 'iPhone 16 Pro',
     state: 'idle',
@@ -256,7 +256,7 @@ export const mockLotteries: Lottery[] = [
   },
   {
     id: 'lot-2',
-    name: 'Yarim yillik bosh loterеya',
+    name: 'Yarim yillik bosh omadli mijoz',
     date: '2026-07-15T18:00:00Z',
     prize: 'Yangi Chevrolet Cobalt',
     state: 'idle',
@@ -265,9 +265,9 @@ export const mockLotteries: Lottery[] = [
 ]
 
 export const mockTickets: LotteryTicket[] = [
-  { id: 't-1', number: '#1042', lotteryDate: '2026-06-30T18:00:00Z', lotteryName: 'Iyun oylik loterеya', isWinner: false },
-  { id: 't-2', number: '#1043', lotteryDate: '2026-06-30T18:00:00Z', lotteryName: 'Iyun oylik loterеya', isWinner: false },
-  { id: 't-3', number: '#0341', lotteryDate: '2026-05-30T18:00:00Z', lotteryName: 'May oylik loterеya', isWinner: true },
+  { id: 't-1', number: '#1042', lotteryDate: '2026-06-30T18:00:00Z', lotteryName: 'Iyun oylik omadli mijoz', isWinner: false },
+  { id: 't-2', number: '#1043', lotteryDate: '2026-06-30T18:00:00Z', lotteryName: 'Iyun oylik omadli mijoz', isWinner: false },
+  { id: 't-3', number: '#0341', lotteryDate: '2026-05-30T18:00:00Z', lotteryName: 'May oylik omadli mijoz', isWinner: true },
 ]
 
 export const mockWinners: LotteryWinner[] = [
@@ -277,7 +277,7 @@ export const mockWinners: LotteryWinner[] = [
     winnerName: 'Akbar A.',
     ticketNumber: '#0341',
     prize: 'Samsung Galaxy S24',
-    lotteryName: 'May oylik loterеya',
+    lotteryName: 'May oylik omadli mijoz',
   },
   {
     id: 'w-2',
@@ -285,7 +285,7 @@ export const mockWinners: LotteryWinner[] = [
     winnerName: 'Dilshod K.',
     ticketNumber: '#0218',
     prize: '50,000,000 so\'m',
-    lotteryName: 'Aprel oylik loterеya',
+    lotteryName: 'Aprel oylik omadli mijoz',
   },
   {
     id: 'w-3',
@@ -293,7 +293,7 @@ export const mockWinners: LotteryWinner[] = [
     winnerName: 'Marjona Y.',
     ticketNumber: '#0179',
     prize: 'MacBook Air M3',
-    lotteryName: 'Mart oylik loterеya',
+    lotteryName: 'Mart oylik omadli mijoz',
   },
 ]
 

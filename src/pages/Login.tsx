@@ -4,12 +4,15 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   ArrowRight,
   Check,
+  FileSignature,
   Fingerprint,
+  Loader2,
   Lock,
   Phone,
   QrCode,
   ShieldCheck,
   Sparkles,
+  UserCheck,
 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
@@ -20,13 +23,16 @@ import { appConfig } from '@/config/app'
 import { cn } from '@/lib/utils'
 import { Logo } from '@/components/Logo'
 import { AnimatedNumber, FadeUp, Stagger, StaggerItem } from '@/components/motion'
+import { UysotLoginForm } from '@/features/auth/UysotLoginForm'
+import { uysotConfigured, uysotContractApi, contractToUser } from '@/api/uysot'
 
-type Step = 'phone' | 'otp' | 'success'
+type Step = 'phone' | 'otp' | 'checking' | 'success'
+type LoginTab = 'phone' | 'contract'
 
 const facts = [
   { headline: "Uy emas, orzu quramiz", kicker: 'SHIORIMIZ' },
   { headline: "Qadriyatli qo'shnilar — hammaga sotilmaydi", kicker: 'PREMIUM' },
-  { headline: 'Iyun loterеyada iPhone 16 Pro yutib oling', kicker: 'AKSIYA' },
+  { headline: 'Har oy omadli mijoz tanlovida iPhone 16 Pro yuting', kicker: 'AKSIYA' },
   { headline: '320+ mamnun mijoz portal orqali kuzatadi', kicker: 'STATISTIKA' },
   { headline: '98% mijoz mamnunlik koeffitsienti', kicker: 'REYTING' },
 ]
@@ -50,6 +56,7 @@ const langs = [
 ]
 
 export function LoginPage() {
+  const [tab, setTab] = useState<LoginTab>('phone')
   const [step, setStep] = useState<Step>('phone')
   const [phone, setPhone] = useState('+998')
   const [otp, setOtp] = useState(['', '', '', ''])
@@ -62,21 +69,20 @@ export function LoginPage() {
   const [showQr, setShowQr] = useState(false)
   const inputsRef = useRef<Array<HTMLInputElement | null>>([])
 
-  const { setTokens, setUser, setRememberMe } = useAuthStore()
+  const { setTokens, setUser, setRememberMe, setUysotIds } = useAuthStore()
   const { notify } = useToast()
   const navigate = useNavigate()
   const location = useLocation()
   const from = (location.state as { from?: { pathname: string } } | null)?.from?.pathname ?? '/dashboard'
 
-  // Rotating fact strip
   useEffect(() => {
     const id = setInterval(() => setActiveFact((p) => (p + 1) % facts.length), 4000)
     return () => clearInterval(id)
   }, [])
 
-  // Resend countdown
   useEffect(() => {
     if (step !== 'otp') return
+    setResendIn(60)
     const t = setInterval(() => setResendIn((s) => (s > 0 ? s - 1 : 0)), 1000)
     return () => clearInterval(t)
   }, [step])
@@ -92,8 +98,12 @@ export function LoginPage() {
     try {
       await authApi.requestOtp({ phone })
       setStep('otp')
-      setResendIn(60)
-      notify('SMS-kod yuborildi. Test kod: 1234', 'info')
+      notify(
+        uysotConfigured
+          ? 'SMS-kod yuborildi'
+          : 'SMS-kod yuborildi. Test kod: 1234',
+        'info',
+      )
       setTimeout(() => inputsRef.current[0]?.focus(), 250)
     } catch (e) {
       const msg = (e as { response?: { data?: { message?: string } } }).response?.data?.message
@@ -109,9 +119,7 @@ export function LoginPage() {
     next[i] = clean
     setOtp(next)
     if (clean && i < 3) inputsRef.current[i + 1]?.focus()
-    if (next.every((d) => d) && i === 3) {
-      void submitOtp(next.join(''))
-    }
+    if (next.every((d) => d) && i === 3) void submitOtp(next.join(''))
   }
 
   const onOtpKey = (i: number, e: KeyboardEvent<HTMLInputElement>) => {
@@ -134,21 +142,63 @@ export function LoginPage() {
     setError(null)
     setLoading(true)
     try {
+      // 1. SMS kodni tasdiqlash
       const res = await authApi.verifyOtp({ phone, code, rememberMe: remember })
-      setTokens(res.accessToken, res.refreshToken)
-      setUser(res.user)
+
+      if (uysotConfigured) {
+        // 2. Uysot bazasida telefon raqamini tekshirish
+        setStep('checking')
+        setLoading(false)
+
+        const contractRow = await uysotContractApi.findByPhone(phone)
+
+        if (!contractRow) {
+          setStep('otp')
+          setError(
+            'Telefon raqami mijozlar bazasida topilmadi. ' +
+            "Iltimos, shartnoma raqami orqali kiring yoki biz bilan bog'laning.",
+          )
+          setOtp(['', '', '', ''])
+          setTimeout(() => inputsRef.current[0]?.focus(), 100)
+          return
+        }
+
+        // 3. To'liq shartnoma ma'lumotlarini olish
+        const contract = await uysotContractApi.getById(contractRow.id)
+        const userPart = contractToUser(contract)
+
+        setTokens('uysot-session', 'uysot-session')
+        setUser({
+          id: userPart.id ?? String(contract.id),
+          fullName: userPart.fullName ?? 'Mijoz',
+          phone,
+          role: 'MIJOZ',
+          contractNumber: contract.number,
+          contractDate: userPart.contractDate,
+          registeredAt: userPart.registeredAt ?? new Date().toISOString(),
+        })
+        setUysotIds({ contractId: contract.id, leadId: contract.client?.id ?? null })
+      } else {
+        // Uysot sozlanmagan — mock auth
+        setTokens(res.accessToken, res.refreshToken)
+        setUser(res.user)
+      }
+
       setRememberMe(remember)
       setStep('success')
-      // Brief success state then navigate
       setTimeout(() => {
-        notify(`Xush kelibsiz, ${res.user.fullName.split(' ')[0]}!`, 'success')
+        const name = uysotConfigured
+          ? (useAuthStore.getState().user?.fullName?.split(' ')[0] ?? 'Mijoz')
+          : res.user.fullName.split(' ')[0]
+        notify(`Xush kelibsiz, ${name}!`, 'success')
         navigate(from, { replace: true })
       }, 900)
     } catch (e) {
       const msg = (e as { response?: { data?: { message?: string } } }).response?.data?.message
-      setError(msg ?? "Kod noto'g'ri")
+      setStep('otp')
+      setError(msg ?? "Kod noto'g'ri yoki muammo yuz berdi")
       setOtp(['', '', '', ''])
-      inputsRef.current[0]?.focus()
+      setTimeout(() => inputsRef.current[0]?.focus(), 100)
     } finally {
       setLoading(false)
     }
@@ -166,11 +216,12 @@ export function LoginPage() {
     }
   }
 
+  const isFormStep = step !== 'success' && step !== 'checking'
+
   return (
     <div className="min-h-screen bg-bg grid lg:grid-cols-[1.05fr_1fr]">
-      {/* Left side — gradient marketing panel */}
+      {/* Left — marketing panel */}
       <div className="hidden lg:flex relative flex-col justify-between p-12 bg-gradient-to-br from-brand-700 via-brand-800 to-brand-900 text-white overflow-hidden">
-        {/* Decorative gradients */}
         <div className="absolute -top-32 -right-32 h-[460px] w-[460px] rounded-full bg-gold/25 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-32 -left-32 h-[400px] w-[400px] rounded-full bg-gold/15 blur-3xl pointer-events-none" />
         <div
@@ -192,7 +243,6 @@ export function LoginPage() {
         </div>
 
         <div className="relative space-y-8">
-          {/* Rotating fact strip */}
           <div>
             <AnimatePresence mode="wait">
               <motion.div
@@ -212,7 +262,6 @@ export function LoginPage() {
               </motion.div>
             </AnimatePresence>
 
-            {/* Progress dots */}
             <div className="mt-6 flex gap-1.5">
               {facts.map((_, idx) => (
                 <button
@@ -228,7 +277,6 @@ export function LoginPage() {
             </div>
           </div>
 
-          {/* Stats row */}
           <div className="grid grid-cols-3 gap-4 pt-6 border-t border-gold/20">
             {stats.map((s) => (
               <div key={s.label}>
@@ -242,7 +290,6 @@ export function LoginPage() {
         </div>
 
         <div className="relative">
-          {/* Trust badges */}
           <div className="grid grid-cols-3 gap-2 pb-4 border-b border-gold/15">
             {trustBadges.map((b) => (
               <div key={b.label} className="flex items-center gap-2 text-xs">
@@ -258,9 +305,8 @@ export function LoginPage() {
         </div>
       </div>
 
-      {/* Right side — auth form */}
+      {/* Right — auth form */}
       <div className="flex items-center justify-center p-6 lg:p-12 relative">
-        {/* Top right mobile logo */}
         <div className="lg:hidden absolute top-6 left-6">
           <Link to="/" className="inline-flex items-center gap-2">
             <Logo size={36} background="dark" />
@@ -272,7 +318,44 @@ export function LoginPage() {
         </div>
 
         <div className="w-full max-w-sm">
+          {/* Tabs — faqat boshlang'ich holatda ko'rsatiladi */}
+          {isFormStep && step === 'phone' && (
+            <div className="mb-6 inline-flex w-full bg-surface-muted rounded-element p-0.5">
+              <button
+                type="button"
+                onClick={() => { setTab('phone'); setError(null) }}
+                className={cn(
+                  'flex-1 flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-[7px] text-xs font-semibold transition-colors',
+                  tab === 'phone' ? 'bg-surface text-ink shadow-card' : 'text-ink-muted hover:text-ink',
+                )}
+              >
+                <Phone className="h-3 w-3" />
+                Telefon raqam
+              </button>
+              <button
+                type="button"
+                onClick={() => { setTab('contract'); setError(null) }}
+                className={cn(
+                  'flex-1 flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-[7px] text-xs font-semibold transition-colors',
+                  tab === 'contract' ? 'bg-surface text-ink shadow-card' : 'text-ink-muted hover:text-ink',
+                )}
+              >
+                <FileSignature className="h-3 w-3" />
+                Shartnoma
+              </button>
+            </div>
+          )}
+
+          {/* Contract number login */}
+          {tab === 'contract' && step === 'phone' && (
+            <UysotLoginForm />
+          )}
+
+          {/* Phone OTP login */}
+          {(tab === 'phone' || step !== 'phone') && (
           <AnimatePresence mode="wait" initial={false}>
+
+            {/* Step: phone */}
             {step === 'phone' && (
               <motion.form
                 key="phone"
@@ -287,7 +370,9 @@ export function LoginPage() {
                   <div>
                     <h1 className="text-3xl font-extrabold tracking-tight text-ink">Kirish</h1>
                     <p className="text-sm text-ink-muted mt-1.5">
-                      Shartnomada ko'rsatilgan telefon raqamingiz orqali kiring
+                      {uysotConfigured
+                        ? 'Shartnomadagi telefon raqamingiz orqali kiring'
+                        : 'Telefon raqamingiz orqali kiring'}
                     </p>
                   </div>
                 </FadeUp>
@@ -307,6 +392,18 @@ export function LoginPage() {
                       className={cn(error && 'animate-shake')}
                     />
                   </StaggerItem>
+
+                  {uysotConfigured && (
+                    <StaggerItem>
+                      <div className="rounded-element border border-brand/20 bg-brand/5 p-3 flex items-start gap-2 text-xs text-ink-muted">
+                        <UserCheck className="h-3.5 w-3.5 text-brand shrink-0 mt-0.5" />
+                        <span>
+                          SMS kod tasdiqlangandan so'ng telefon raqamingiz
+                          mijozlar bazasida tekshiriladi.
+                        </span>
+                      </div>
+                    </StaggerItem>
+                  )}
 
                   <StaggerItem>
                     <label className="flex items-center gap-2 text-sm text-ink select-none cursor-pointer">
@@ -367,13 +464,15 @@ export function LoginPage() {
                   <StaggerItem>
                     <p className="text-[11px] text-ink-subtle text-center inline-flex items-center justify-center gap-1.5 w-full">
                       <Lock className="h-3 w-3" />
-                      Davom etish orqali siz <a className="underline hover:text-ink">foydalanish shartlari</a> bilan rozisiz
+                      Davom etish orqali siz{' '}
+                      <a className="underline hover:text-ink">foydalanish shartlari</a> bilan rozisiz
                     </p>
                   </StaggerItem>
                 </Stagger>
               </motion.form>
             )}
 
+            {/* Step: otp */}
             {step === 'otp' && (
               <motion.div
                 key="otp"
@@ -385,11 +484,7 @@ export function LoginPage() {
               >
                 <div>
                   <button
-                    onClick={() => {
-                      setStep('phone')
-                      setError(null)
-                      setOtp(['', '', '', ''])
-                    }}
+                    onClick={() => { setStep('phone'); setError(null); setOtp(['', '', '', '']) }}
                     className="text-xs text-brand font-semibold mb-3 inline-flex items-center gap-1 hover:underline"
                   >
                     ← Telefon raqamni o'zgartirish
@@ -400,7 +495,10 @@ export function LoginPage() {
                   </p>
                 </div>
 
-                <div className={cn('flex justify-center gap-3', error && 'animate-shake')} onPaste={onOtpPaste}>
+                <div
+                  className={cn('flex justify-center gap-3', error && 'animate-shake')}
+                  onPaste={onOtpPaste}
+                >
                   {otp.map((d, i) => (
                     <input
                       key={i}
@@ -427,7 +525,7 @@ export function LoginPage() {
                   loading={loading}
                   fullWidth
                   size="lg"
-                  leftIcon={<ShieldCheck className="h-4 w-4" />}
+                  leftIcon={loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <ShieldCheck className="h-4 w-4" />}
                 >
                   Tasdiqlash
                 </Button>
@@ -446,6 +544,33 @@ export function LoginPage() {
               </motion.div>
             )}
 
+            {/* Step: checking (Uysot bazasi tekshirilmoqda) */}
+            {step === 'checking' && (
+              <motion.div
+                key="checking"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                className="text-center py-16 space-y-4"
+              >
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ repeat: Infinity, duration: 1.2, ease: 'linear' }}
+                  className="mx-auto h-16 w-16 rounded-pill bg-brand/10 flex items-center justify-center"
+                >
+                  <UserCheck className="h-8 w-8 text-brand" />
+                </motion.div>
+                <div>
+                  <p className="text-base font-bold text-ink">Tekshirilmoqda...</p>
+                  <p className="text-sm text-ink-muted mt-1">
+                    Telefon raqamingiz mijozlar bazasida qidirilmoqda
+                  </p>
+                </div>
+              </motion.div>
+            )}
+
+            {/* Step: success */}
             {step === 'success' && (
               <motion.div
                 key="success"
@@ -470,9 +595,10 @@ export function LoginPage() {
               </motion.div>
             )}
           </AnimatePresence>
+          )}
 
           {/* Language switcher */}
-          {step !== 'success' && (
+          {step !== 'success' && step !== 'checking' && (
             <div className="mt-8 flex items-center justify-center gap-1 bg-surface border border-border rounded-pill p-0.5 mx-auto w-fit">
               {langs.map((l) => (
                 <button

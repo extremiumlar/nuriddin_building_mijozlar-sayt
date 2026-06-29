@@ -129,7 +129,7 @@ function BuildingShowcase() {
         </div>
         <div className="glass rounded-element px-3 py-2 shadow-card">
           <p className="text-[10px] text-ink-muted uppercase tracking-wider">Topshirish</p>
-          <p className="text-sm font-bold text-ink leading-tight">Dek 2026</p>
+          <p className="text-sm font-bold text-ink leading-tight">2027 / 2028</p>
         </div>
       </div>
 

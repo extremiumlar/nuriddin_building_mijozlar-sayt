@@ -7,6 +7,9 @@ import { cn } from '@/lib/utils'
 const navItems = [
   { label: 'Imkoniyatlar', href: '#features' },
   { label: 'Loyiha', href: '#projects' },
+  { label: 'Qurilish', href: '#construction' },
+  { label: 'Omadli mijoz', href: '#lottery' },
+  { label: 'Hamjamiyat', href: '#community' },
 ]
 
 export function StickyHeader() {
